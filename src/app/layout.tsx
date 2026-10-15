@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Newsreader } from "next/font/google";
+import { Bricolage_Grotesque, Newsreader, Geist } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const display = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -15,9 +18,9 @@ const body = Newsreader({
 });
 
 export const metadata: Metadata = {
-  title: "Abhii | Computer science student and builder",
+  title: "Abhiman | Computer science student and builder",
   description:
-    "Portfolio of Abhii: AI products, desktop tools and web platforms, built alongside a B.Tech in Computer Science (AI and Data Science).",
+    "Portfolio of Abhiman: AI products, desktop tools and web platforms, built alongside a B.Tech in Computer Science (AI and Data Science).",
 };
 
 export const viewport: Viewport = {
@@ -29,7 +32,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    <html lang="en" className={cn(display.variable, body.variable, "font-sans", geist.variable)}>
       <body>{children}</body>
     </html>
   );

@@ -1,14 +1,15 @@
+import Link from "next/link";
 import { site } from "@/data/site";
 
 export default function Header() {
   return (
     <header className="header">
-      <a className="header__brand" href="#top" aria-label={`${site.name}, back to top`}>
+      <Link className="header__brand" href="/" aria-label={`${site.name}, home`}>
         {site.name}
-      </a>
+      </Link>
       <nav aria-label="Primary" className="header__nav">
-        <a href="#work">Work</a>
-        <a href="#contact">Contact</a>
+        <Link href="/#work">Work</Link>
+        <Link href="/#contact">Contact</Link>
       </nav>
     </header>
   );

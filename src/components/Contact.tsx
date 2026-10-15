@@ -4,7 +4,7 @@ export default function Contact() {
   return (
     <footer id="contact" className="contact" aria-labelledby="contact-title">
       <h2 id="contact-title" className="section-title">
-        Say hello
+        Let s Collect
       </h2>
       <a className="contact__email" href={`mailto:${site.email}`}>
         {site.email}
