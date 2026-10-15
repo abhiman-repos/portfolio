@@ -28,6 +28,10 @@ export default function ScrollVideoHero() {
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
+    let current = 0;
+    let lastSet = -1;
+    let raf = 0;
+
     /* ---------- 1. Load the whole video into memory ----------
        Seeking inside fully-buffered data is instant, which is what makes
        scroll-scrubbing smooth. If anything fails we fall back to a normal src. */
@@ -57,10 +61,19 @@ export default function ScrollVideoHero() {
           if (total) setLoad(received / total);
         }
         objectUrl = URL.createObjectURL(new Blob(parts, { type: "video/mp4" }));
+        video.addEventListener(
+          "error",
+          () => {
+            console.error("Blob video failed, falling back to direct src", video.error);
+            video.src = VIDEO_SRC;
+          },
+          { once: true },
+        );
         video.src = objectUrl;
         setLoad(1, true);
       } catch (err) {
         if ((err as Error).name === "AbortError") return;
+        console.error("Video preload failed, using direct src:", err);
         video.src = VIDEO_SRC;
         setLoad(1, true);
       }
@@ -68,16 +81,18 @@ export default function ScrollVideoHero() {
 
     /* iOS Safari only allows seeking after the video has been "played" once. */
     const prime = () => {
-      video.play().then(() => video.pause()).catch(() => {});
+      video
+        .play()
+        .then(() => {
+          video.pause();
+          lastSet = -1; // force the next frame to seek to the right time
+        })
+        .catch(() => {});
     };
     video.addEventListener("loadeddata", prime, { once: true });
     window.addEventListener("touchstart", prime, { once: true, passive: true });
 
     /* ---------- 2. Scroll → video time + chapter text ---------- */
-    let current = 0;
-    let lastSet = -1;
-    let raf = 0;
-
     const tick = () => {
       const rect = track.getBoundingClientRect();
       const scrollable = track.offsetHeight - window.innerHeight;
