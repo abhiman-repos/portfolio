@@ -143,7 +143,7 @@ export const projects: Project[] = [
       "Celery",
       "SIP trunking",
     ],
-    
+
     overview: [
       "Small vendors lose orders because nobody picks up the phone. This platform gives them a voice agent that answers every call, understands the caller's question, and replies using only that vendor's own product documents — so answers stay accurate, on-brand and auditable.",
       "The hard parts were never the model. They were retrieval quality over noisy phone audio, keeping every tenant's data strictly isolated in a shared pipeline, and hitting sub-second turn-taking so the caller doesn't feel like they're talking to a bot.",
@@ -197,7 +197,6 @@ export const projects: Project[] = [
     role: "Full-stack developer",
     stack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Tailwind"],
 
-    
     overview: [
       "Gocyn started as a way to match students with internships and mentors. It has since grown into a full LMS: cohorts, assignments, progress tracking and mentor feedback in one place.",
       "The interesting constraint was designing the data model so a simple internship listing could evolve into structured courses without a rewrite.",
@@ -286,6 +285,101 @@ export const projects: Project[] = [
         src: "/projects/garage-pos/pos.png",
         alt: "POS screen",
       },
+    ],
+  },
+];
+
+export type SkillGroup = {
+  title: string;
+  /** one line — kya kaam karta hoon is area me (senior signal) */
+  focus: string;
+  items: string[];
+};
+
+export const skills: SkillGroup[] = [
+  {
+    title: "Languages & Core Fundamentals",
+    focus:
+      "Python is my primary language for problem-solving, building strong Data Structures and Algorithms fundamentals, and developing AI-powered products. Its rich ecosystem and community help me turn ideas into practical solutions, from backend systems to intelligent applications.",
+    items: [
+      "Python",
+      "TypeScript",
+      "SQL",
+      "DSA",
+      "OOP",
+      "System Design",
+      "Operating Systems",
+      "Computer Networks",
+      "DBMS",
+    ],
+  },
+  {
+    title: "Frontend & Product",
+    focus:
+      "Building intuitive interfaces for AI-powered products — connecting frontend experiences with APIs, intelligent systems, and responsive user workflows.",
+    items: [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "REST API integration",
+      "Responsive UI",
+    ],
+  },
+  {
+    title: "Backend & APIs",
+    focus:
+      "Engineering reliable backend systems and APIs that connect AI models, data, and applications through secure, scalable services.",
+    items: [
+      "Django",
+      "Django REST Framework",
+      "RESTful API design",
+      "Authentication & RBAC",
+      "Schema design",
+      "Indexing & query optimization",
+      "Transactions (ACID)",
+    ],
+  },
+  {
+    title: "AI Engineering",
+    focus:
+      "RAG pipelines and LLM integrations that answer from real data — grounded, evaluated, shipped.",
+    items: [
+      "LangChain",
+      "Google Gemini API",
+      "Retrieval-Augmented Generation (RAG)",
+      "Embeddings & semantic search",
+      "Prompt engineering",
+      "Hallucination reduction",
+      "Vector databases",
+    ],
+  },
+  {
+    title: "Data & Storage",
+    focus:
+      "Picking the right store for the job — relational for truth, vector for recall, Redis for speed.",
+    items: [
+      "PostgreSQL",
+      "pgvector",
+      "ChromaDB",
+      "MongoDB Atlas",
+      "Redis",
+      "Indexing",
+      "Query optimization",
+    ],
+  },
+  {
+    title: "Infra & Delivery",
+    focus:
+      "Taking projects from localhost to production — containers, pipelines and deploys I can trust.",
+    items: [
+      "Docker",
+      "Git / GitHub",
+      "GitHub Actions (CI/CD)",
+      "Vercel",
+      "Render",
+      "Cloudinary",
+      "Postman",
+      "Linux",
     ],
   },
 ];

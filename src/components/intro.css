@@ -1,0 +1,208 @@
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.25rem, 3vw, 2.5rem) var(--pad);
+  background: #000;
+  transition: transform 0.95s cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: transform;
+  overflow: hidden;
+}
+
+.intro[data-phase="exit"] {
+  transform: translate3d(0, -100%, 0);
+  pointer-events: none;
+}
+
+.intro__greeting {
+  font-family: var(--display);
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
+  color: var(--fog);
+}
+
+.intro__mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.intro__rise {
+  display: block;
+  transform: translate3d(0, 110%, 0);
+  animation: intro-rise 1s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes intro-rise {
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.intro__name {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.8rem, min(12vw, 17vh), 11rem);
+  letter-spacing: -0.055em;
+  line-height: 0.95;
+}
+
+.intro__rows {
+  max-width: 60rem;
+  margin-top: clamp(1.5rem, 3.5vw, 3rem);
+}
+
+.intro__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  opacity: 0;
+  animation: intro-fade 0.8s ease both;
+  animation-delay: var(--d);
+}
+
+.intro__row::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: var(--line);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: intro-draw 1s cubic-bezier(0.6, 0, 0.2, 1) both;
+  animation-delay: var(--d);
+}
+
+@keyframes intro-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes intro-draw {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.intro__row dt {
+  font-family: var(--display);
+  font-size: 0.9rem;
+  color: var(--fog);
+  padding-top: 0.3em;
+}
+
+.intro__row dd {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(1.05rem, 1.9vw, 1.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.intro__marker::before {
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 0.6rem;
+  background: var(--signal);
+}
+
+.intro__bottom {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.intro__progress {
+  flex: 1;
+  min-width: 0;
+}
+
+.intro__label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.7rem;
+  font-family: var(--display);
+  font-size: 0.9rem;
+  color: var(--fog);
+}
+
+.intro__count {
+  font-variant-numeric: tabular-nums;
+}
+
+.intro__meter {
+  height: 2px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.intro__fill {
+  display: block;
+  height: 100%;
+  background: var(--signal);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.intro__skip {
+  flex: none;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--bone);
+  font-family: var(--display);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.intro__skip:hover {
+  border-color: var(--bone);
+}
+
+@media (max-width: 599px) {
+  .intro__row {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+
+  .intro__row dt {
+    padding-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    transition: opacity 0.4s ease;
+  }
+
+  .intro[data-phase="exit"] {
+    transform: none;
+    opacity: 0;
+  }
+
+  .intro__rise {
+    transform: none;
+    animation: none;
+  }
+
+  .intro__row {
+    opacity: 1;
+    animation: none;
+  }
+
+  .intro__row::before {
+    transform: none;
+    animation: none;
+  }
+}

@@ -24,9 +24,9 @@ export default function Work() {
             key={project.slug}
             className="work__card"
             theme="dark"
-            spotlightColor="#ffffff"
-            intensity={0.15}
-            spotlightSize={240}
+            spotlightColor="#d1c6c6"
+            intensity={0.25}
+            spotlightSize={140}
             softness={0.7}
             shape="circle"
             borderGlow={0.6}
@@ -115,7 +115,7 @@ const css = `
     max-width: 34rem;
     font-size: 0.95rem;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(255, 255, 255, 0.42);
     margin: 0;
   }
 
@@ -134,7 +134,7 @@ const css = `
     flex-direction: column;
     gap: 0.85rem;
     height: 100%;
-    padding: 1.5rem;
+    padding: 1.25rem;
     color: inherit;
     text-decoration: none;
   }
@@ -197,29 +197,101 @@ const css = `
   }
 
   /* Deploy badge */
-  .work__deploy {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    margin: 0.15rem 0 0;
-    font-size: 0.72rem;
-    font-weight: 500;
-    color: #6ee7b7;
-  }
+.work__deploy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.15rem 0 0;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #6ee7b7;
+}
 
+/* Solid core + two expanding rings */
+.work__dot {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, #a7f3d0 0%, #10b981 55%, #059669 100%);
+  box-shadow:
+    0 0 0 1px rgba(16, 185, 129, 0.35),
+    0 0 8px 1px rgba(16, 185, 129, 0.55),
+    0 0 16px 2px rgba(16, 185, 129, 0.25);
+}
+
+/* Ring 1 — primary pulse */
+.work__dot::before,
+.work__dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid #10b981;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.work__dot::before {
+  animation: work-ripple 2.2s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+}
+
+/* Ring 2 — delayed for depth */
+.work__dot::after {
+  animation: work-ripple 2.2s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+  animation-delay: 1.1s;
+}
+
+@keyframes work-ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+    border-width: 2px;
+  }
+  70% {
+    opacity: 0.15;
+    border-width: 1px;
+  }
+  100% {
+    transform: scale(3.5);
+    opacity: 0;
+    border-width: 0.5px;
+  }
+}
+
+/* Breathing glow on the core itself */
+@keyframes work-breathe {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(16, 185, 129, 0.35),
+      0 0 8px 1px rgba(16, 185, 129, 0.55),
+      0 0 16px 2px rgba(16, 185, 129, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(16, 185, 129, 0.5),
+      0 0 12px 2px rgba(16, 185, 129, 0.7),
+      0 0 22px 4px rgba(16, 185, 129, 0.35);
+  }
+}
+
+.work__dot {
+  animation: work-breathe 2.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work__dot,
+  .work__dot::before,
+  .work__dot::after {
+    animation: none;
+  }
   .work__dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #10b981;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
-    animation: work-pulse 2.4s ease-in-out infinite;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
   }
-
-  @keyframes work-pulse {
-    0%, 100% { box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15); }
-    50%      { box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.08); }
-  }
+}
 
   /* Footer */
   .work__footer {

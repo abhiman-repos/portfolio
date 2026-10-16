@@ -2,8 +2,13 @@
 
 import { useEffect, useRef } from "react";
 import { chapters } from "@/data/site";
+import {
+  VIDEO_SRC,
+  getVideoState,
+  startVideoLoad,
+  subscribeVideo,
+} from "@/lib/videoStore";
 
-const VIDEO_SRC = "/video/portfolio-scrub.mp4";
 const POSTER_SRC = "/video/poster.jpg";
 const FALLBACK_DURATION = 10;
 const FADE = 0.035; // how much scroll progress a chapter takes to fade in/out
@@ -15,7 +20,6 @@ export default function ScrollVideoHero() {
   const trackRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const railRef = useRef<HTMLSpanElement>(null);
-  const loadRef = useRef<HTMLSpanElement>(null);
   const hintRef = useRef<HTMLDivElement>(null);
   const chapterRefs = useRef<(HTMLElement | null)[]>([]);
 
@@ -32,52 +36,30 @@ export default function ScrollVideoHero() {
     let lastSet = -1;
     let raf = 0;
 
-    /* ---------- 1. Load the whole video into memory ----------
+    /* ---------- 1. Use the video the welcome screen already downloaded ----------
        Seeking inside fully-buffered data is instant, which is what makes
-       scroll-scrubbing smooth. If anything fails we fall back to a normal src. */
-    const abort = new AbortController();
-    let objectUrl: string | null = null;
-
-    const setLoad = (p: number, done = false) => {
-      const el = loadRef.current;
-      if (!el) return;
-      el.style.transform = `scaleX(${p})`;
-      if (done) el.parentElement?.setAttribute("data-done", "true");
+       scroll-scrubbing smooth. If the preload failed we play the file directly. */
+    const setVideoSource = (src: string) => {
+      if (video.dataset.src === src) return;
+      video.dataset.src = src;
+      video.src = src;
     };
+    const applySource = () => {
+      const s = getVideoState();
+      if (s.url) setVideoSource(s.url);
+      else if (s.failed) setVideoSource(VIDEO_SRC);
+    };
+    startVideoLoad();
+    applySource();
+    const unsubscribe = subscribeVideo(applySource);
 
-    (async () => {
-      try {
-        const res = await fetch(VIDEO_SRC, { signal: abort.signal });
-        if (!res.ok || !res.body) throw new Error("bad response");
-        const total = Number(res.headers.get("content-length")) || 0;
-        const reader = res.body.getReader();
-        const parts: BlobPart[] = [];
-        let received = 0;
-        for (;;) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          parts.push(value as BlobPart);
-          received += value.length;
-          if (total) setLoad(received / total);
-        }
-        objectUrl = URL.createObjectURL(new Blob(parts, { type: "video/mp4" }));
-        video.addEventListener(
-          "error",
-          () => {
-            console.error("Blob video failed, falling back to direct src", video.error);
-            video.src = VIDEO_SRC;
-          },
-          { once: true },
-        );
-        video.src = objectUrl;
-        setLoad(1, true);
-      } catch (err) {
-        if ((err as Error).name === "AbortError") return;
-        console.error("Video preload failed, using direct src:", err);
-        video.src = VIDEO_SRC;
-        setLoad(1, true);
+    const onVideoError = () => {
+      if (video.dataset.src && video.dataset.src !== VIDEO_SRC) {
+        console.error("Preloaded video failed to play, using direct src", video.error);
+        setVideoSource(VIDEO_SRC);
       }
-    })();
+    };
+    video.addEventListener("error", onVideoError);
 
     /* iOS Safari only allows seeking after the video has been "played" once. */
     const prime = () => {
@@ -142,8 +124,8 @@ export default function ScrollVideoHero() {
 
     return () => {
       cancelAnimationFrame(raf);
-      abort.abort();
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
+      unsubscribe();
+      video.removeEventListener("error", onVideoError);
       video.removeEventListener("loadeddata", prime);
       window.removeEventListener("touchstart", prime);
     };
@@ -162,10 +144,6 @@ export default function ScrollVideoHero() {
           disablePictureInPicture
           aria-hidden="true"
         />
-
-        <div className="loadbar" aria-hidden="true">
-          <span ref={loadRef} className="loadbar__fill" />
-        </div>
 
         {chapters.map((c, i) => {
           const Heading = c.h1 ? "h1" : "h2";
