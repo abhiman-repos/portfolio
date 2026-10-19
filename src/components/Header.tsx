@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { site } from "@/data/site";
+import TechText from "./TechText";
 
 type NavItem = {
   label: string;
@@ -11,10 +11,10 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
-  { label: "Updates", href: "/#updates" },
+  { label: "Updates", href: "/updates" },
   {
     label: "Blogs",
-    href: "/#blogs",
+    href: "/blogs",
     children: [
       { label: "Latest posts", href: "/#blogs" },
       { label: "Archive", href: "/#blogs" },
@@ -87,40 +87,77 @@ export default function Header() {
       <style dangerouslySetInnerHTML={{ __html: css }} />
 
       <header className="header">
-        <Link
-          className="header__brand"
-          href="/"
-          aria-label={`${site.name}, home`}
-        >
-          <span className="header__brand-mark" aria-hidden="true" />
-          <span>{site.name}</span>
-        </Link>
-
-        <div className="header__right">
-          <nav aria-label="Primary" className="header__nav">
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                className="header__link"
-                href={item.href}
-              >
-                <span className="header__link-text">{item.label}</span>
-              </Link>
-            ))}
-          </nav>
-
-          <button
-            type="button"
-            className={`header__burger${open ? " is-open" : ""}`}
-            onClick={() => setOpen((v) => !v)}
-            aria-label={open ? "Close menu" : "Open menu"}
-            aria-expanded={open}
-            aria-controls="mobile-menu"
+        <div style={{ width: "80%", height: "40px", position: "relative" }}>
+          <TechText
+            text="Abhiman Vishwakarma"
+            fontWeight={600}
+            fontSize={50}
+            reveal="letter"
+            align="left"
+            style={{ paddingLeft: "5%" }}
+            dashLength={7}
+            dashGap={6}
+            specks={15}
+            intro="none"
+            introDuration={2}
+            clickKick
+            guides={false}
+            fontFamily=""
+            letterSpacing={-0.05}
+            accentColor="currentColor"
+            reach={200}
+            softness={0.7}
+            lineStyle="dashed"
+            strokeWidth={1.5}
+            speed={0.1}
+            bounce={0.4}
+            selection
+            labels
+            color="currentColor"
+            draggable
+            sweep
+          />
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: "2%",
+              right: "-18%" /* Made symmetric with left */,
+              height: "100%" /* Take full height to center vertically */,
+              display: "flex",
+              justifyContent:
+                "space-between" /* Pushes burger left, nav right */,
+              alignItems: "center",
+              zIndex: 10,
+            }}
           >
-            <span />
-            <span />
-            <span />
-          </button>
+            <div className="header__right">
+              <nav aria-label="Primary" className="header__nav">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.label}
+                    className="header__link"
+                    href={item.href}
+                  >
+                    <span className="header__link-text">{item.label}</span>
+                  </Link>
+                ))}
+              </nav>
+
+              <button
+                type="button"
+                className={`header__burger${open ? " is-open" : ""}`}
+                onClick={() => setOpen((v) => !v)}
+                aria-label={open ? "Close menu" : "Open menu"}
+                aria-expanded={open}
+                aria-controls="mobile-menu"
+              >
+                <span />
+                <span />
+                <span />
+              </button>
+            </div>
+          </div>
         </div>
       </header>
 
@@ -220,8 +257,8 @@ const css = `
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.85rem clamp(1rem, 3vw, 2rem);
-  background: rgba(10, 10, 11, 0.72);
+  padding: 0.5rem clamp(1rem, 3vw, 2rem);
+  background: rgba(95, 95, 102, 0.07);
   backdrop-filter: blur(14px) saturate(150%);
   -webkit-backdrop-filter: blur(14px) saturate(150%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);

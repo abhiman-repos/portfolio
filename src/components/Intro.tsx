@@ -74,8 +74,11 @@ export default function Intro() {
       const p = Math.min(clamp(elapsed / minMs), getVideoState().progress);
 
       if (fillRef.current) fillRef.current.style.transform = `scaleX(${p})`;
-      if (countRef.current)
-        countRef.current.textContent = String(Math.round(p * 100)).padStart(3, "0");
+      if (countRef.current) {
+        const percent = String(Math.round(p * 100)).padStart(3, "0");
+        countRef.current.textContent = `${percent}%`;
+      }
+        
 
       if (p >= 1 || elapsed > MAX_MS) {
         finish();
@@ -144,7 +147,7 @@ export default function Intro() {
           <div className="intro__label">
             <span>Preparing the experience</span>
             <span ref={countRef} className="intro__count">
-              000
+             0%
             </span>
           </div>
           <div className="intro__meter" aria-hidden="true">

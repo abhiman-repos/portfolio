@@ -73,7 +73,7 @@ export default function Work() {
 
               {/* CTA */}
               <div className="work__footer">
-                <span className="work__cta">View case study</span>
+                <span className="work__cta">Explore Deep about this project</span>
               </div>
             </Link>
           </SpotlightCard>
@@ -88,6 +88,11 @@ const css = `
     padding: 6rem 1.5rem;
     max-width: 72rem;
     margin-inline: auto;
+  }
+
+  .work__card {
+  border-radius: 5px !important;
+  overflow: hidden;
   }
 
   .work__header {

@@ -100,7 +100,7 @@ const css = `
     flex-direction: column;
     gap: 0.85rem;
     padding: 1.35rem 1.4rem 1.4rem;
-    border-radius: 18px;
+    border-radius: 5px;
     background:
       radial-gradient(120% 90% at 0% 0%, rgba(99, 102, 241, 0.07) 0%, transparent 60%),
       linear-gradient(180deg, rgba(255, 255, 255, 0.025) 0%, rgba(255, 255, 255, 0.01) 100%);

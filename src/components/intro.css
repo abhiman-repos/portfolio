@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: clamp(1.25rem, 3vw, 2.5rem) var(--pad);
+  padding: clamp(1.5rem, 4vw, 3rem) var(--pad);
   background: #000;
   transition: transform 0.95s cubic-bezier(0.76, 0, 0.24, 1);
   will-change: transform;
@@ -114,60 +114,84 @@
   background: var(--signal);
 }
 
+/* ── Bottom Section (Progress & Skip) ─────────────────── */
 .intro__bottom {
   display: flex;
   align-items: flex-end;
-  gap: clamp(1rem, 3vw, 2.5rem);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  padding-bottom: 1rem;
 }
 
 .intro__progress {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .intro__label {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.7rem;
+  align-items: flex-end;
   font-family: var(--display);
   font-size: 0.9rem;
   color: var(--fog);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
+/* Make the percentage pop like code/data */
 .intro__count {
-  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: #8b5cf6; /* Theme Purple */
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
 }
 
+/* Make the progress bar visible and sharp */
 .intro__meter {
-  height: 2px;
-  background: var(--line);
+  height: 4px; /* Thicker */
+  background: rgba(255, 255, 255, 0.08);
   overflow: hidden;
+  position: relative;
 }
 
 .intro__fill {
   display: block;
   height: 100%;
-  background: var(--signal);
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.6);
   transform: scaleX(0);
   transform-origin: left;
+  transition: transform 0.1s linear; /* Smooth out the JS updates */
 }
 
+/* Sharp rectangle button matching the rest of the site */
 .intro__skip {
   flex: none;
-  padding: 0.6rem 1.1rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: transparent;
+  padding: 0.8rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0px; /* Sharp corners */
+  background: rgba(255, 255, 255, 0.02);
   color: var(--bone);
   font-family: var(--display);
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: border-color 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .intro__skip:hover {
-  border-color: var(--bone);
+  border-color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.1);
+  color: #ffffff;
+  transform: translateY(-1px);
 }
 
 @media (max-width: 599px) {
@@ -178,6 +202,16 @@
 
   .intro__row dt {
     padding-top: 0;
+  }
+  
+  .intro__bottom {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .intro__skip {
+    width: 100%;
+    text-align: center;
   }
 }
 
