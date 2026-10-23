@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Abhiman Vishwakarma — Portfolio
 
-## Getting Started
+Personal portfolio built with Next.js App Router, React, TypeScript, and Tailwind CSS 4. The site presents an animated introduction, skills, project case studies, and contact links.
 
-First, run the development server:
+## Start here
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`. Run `npm run build` to create a production build and `npm run start` to serve it. Run `npm run lint` for ESLint.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project documentation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [Recruiter readiness review](docs/RECRUITER_READINESS.md): evidence-based risks, prioritized fixes, and a portfolio content checklist.
+- [Portfolio rebuild specification](docs/PORTFOLIO_BUILD_SPEC.md): the routes, design, data model, assets, behavior, and setup needed to recreate this portfolio.
 
-## Learn More
+## Where to edit content
 
-To learn more about Next.js, take a look at the following resources:
+- `src/data/site.ts`: identity links, homepage chapters, skills, and project case-study data.
+- `src/data/intro.ts`: welcome-screen details.
+- `src/app/layout.tsx`: site-wide metadata and fonts.
+- `src/components/`: homepage sections and interactions.
+- `src/app/projects/[slug]/page.tsx`: project detail route.
+- `public/`: static video and image files.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Before publishing, follow the blockers and evidence checks in `docs/RECRUITER_READINESS.md`. The current project data contains placeholder URLs and claims that must be verified or replaced.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Stack
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Next.js 16, React 19, TypeScript, Tailwind CSS 4, Lenis, and Lucide/Hugeicons packages. See `package.json` for exact versions.
