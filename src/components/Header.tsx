@@ -15,9 +15,9 @@ const navItems: NavItem[] = [
     label: "Blogs",
     href: "/blogs",
     children: [
-      { label: "Latest posts", href: "/#blogs" },
-      { label: "Archive", href: "/#blogs" },
-      { label: "Notes", href: "/#blogs" },
+      { label: "Latest article", href: "/blogs/rag-systems-that-fail-safely" },
+      { label: "All field notes", href: "/blogs#notes" },
+      { label: "Voice engineering", href: "/blogs/voice-agents-that-feel-like-conversations" },
     ],
   },
   {
@@ -261,6 +261,17 @@ const css = `
   backdrop-filter: blur(14px) saturate(150%);
   -webkit-backdrop-filter: blur(14px) saturate(150%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.35s ease, visibility 0s linear 0.35s;
+}
+
+html[data-intro-phase="done"] .header {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.35s ease;
 }
 
 .header__brand {

@@ -91,6 +91,12 @@ export type Project = {
 
   /** 2–3 deep, specific points — what YOU built, not what the tech is */
   highlights?: ProjectHighlight[];
+  caseStudy?: {
+    situation: string;
+    task: string;
+    action: string;
+    result: string;
+  };
 
   year?: string;
   /** e.g. "Solo", "Founding engineer", "Team of 3 (backend)" */
@@ -132,6 +138,12 @@ export const projects: Project[] = [
     status: "In production",
     year: "2025",
     role: "Founding engineer",
+    caseStudy: {
+      situation: "Small vendors can miss orders when calls go unanswered, and callers need trustworthy answers about each vendor’s own products.",
+      task: "I set out to build a phone support workflow that could answer product questions, handle interruptions naturally, and bring a person in when the system was unsure.",
+      action: "I built a tenant-aware retrieval pipeline with Gemini and pgvector, then connected it to a streaming speech, response, and telephony flow. I added confidence-based handoff so the transcript and context could travel with the call.",
+      result: "The result is a voice support platform that answers from vendor-specific documents, supports caller barge-in, and can hand uncertain conversations to a human with context.",
+    },
     stack: [
       "Gemini",
       "RAG",
@@ -195,6 +207,12 @@ export const projects: Project[] = [
     status: "Growing",
     year: "2024 — present",
     role: "Full-stack developer",
+    caseStudy: {
+      situation: "Students needed one place to discover internships and connect with mentors, while the product was expanding toward structured learning programmes.",
+      task: "I needed to support the original opportunity workflow while making room for cohorts, assignments, progress, and mentor feedback.",
+      action: "I worked across the Next.js and TypeScript product and its PostgreSQL/Prisma data model, shaping reusable content and mentor workflows around both listings and multi-week programmes.",
+      result: "Gocyn now supports its internship and mentorship foundation while growing into an LMS with cohorts, assignments, progress tracking, and feedback.",
+    },
     stack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Tailwind"],
 
     overview: [
@@ -231,6 +249,12 @@ export const projects: Project[] = [
     status: "Live",
     year: "2024",
     role: "Designer & developer",
+    caseStudy: {
+      situation: "A construction company working across two states needed a credible online presence where prospective clients could understand its services and completed work.",
+      task: "I was responsible for designing and building a fast marketing site with clear service and project information that could be discovered through local search.",
+      action: "I built the site with Next.js and TypeScript, organized service and project pages for scanning, and added structured metadata and optimized assets for search and mobile performance.",
+      result: "The company has a live, structured website that presents its work and services and gives each project a direct page to share and find.",
+    },
     stack: ["Next.js", "TypeScript", "Tailwind", "SEO", "Vercel"],
     overview: [
       "A fast, credible marketing site for a construction firm that needed to look established online. The focus was on project galleries, clear service pages, and getting found locally across two different states.",
@@ -264,6 +288,12 @@ export const projects: Project[] = [
     status: "Shipped",
     year: "2023",
     role: "Full-stack developer",
+    caseStudy: {
+      situation: "Automotive workshops were tracking work and parts manually, while an unreliable internet connection could interrupt daily billing.",
+      task: "I wanted a point-of-sale workflow that could create an invoice quickly, keep working offline, and print directly to a thermal printer.",
+      action: "I built a React and Node.js app with barcode-based item entry, local persistence through IndexedDB and SQLite, reconnect sync, and a thermal-printing flow for GST invoices.",
+      result: "A workshop can scan parts, combine them with labour in one invoice, and keep the sales workflow available when connectivity drops.",
+    },
     stack: ["React", "Node.js", "SQLite", "IndexedDB", "Thermal printing"],
     overview: [
       "Workshops were writing job cards by hand and losing track of parts. This POS lets them scan a barcode, build an invoice in seconds, and keep parts and labour in one record.",
@@ -300,7 +330,7 @@ export const skills: SkillGroup[] = [
   {
     title: "Languages & Core Fundamentals",
     focus:
-      "Python is my primary language for problem-solving, building strong Data Structures and Algorithms fundamentals, and developing AI-powered products. Its rich ecosystem and community help me turn ideas into practical solutions, from backend systems to intelligent applications.",
+      "I use Python for AI and problem-solving, with TypeScript and SQL across product and data layers. Core CS concepts guide how I reason about the systems underneath.",
     items: [
       "Python",
       "TypeScript",
@@ -316,7 +346,7 @@ export const skills: SkillGroup[] = [
   {
     title: "Frontend & Product",
     focus:
-      "Building intuitive interfaces for AI-powered products — connecting frontend experiences with APIs, intelligent systems, and responsive user workflows.",
+      "I build responsive product interfaces that make APIs and AI workflows clear, useful, and comfortable to use.",
     items: [
       "React",
       "Next.js",
@@ -328,7 +358,7 @@ export const skills: SkillGroup[] = [
   {
     title: "Backend & APIs",
     focus:
-      "Engineering reliable backend systems and APIs that connect AI models, data, and applications through secure, scalable services.",
+      "I design APIs, data models, and access rules that connect applications to reliable services and AI systems.",
     items: [
       "Django",
       "Django REST Framework",
@@ -342,7 +372,7 @@ export const skills: SkillGroup[] = [
   {
     title: "AI Engineering",
     focus:
-      "RAG pipelines and LLM integrations that answer from real data — grounded, evaluated, shipped.",
+      "I build grounded LLM features with retrieval, evaluation, and clear fallback behavior when evidence is missing.",
     items: [
       "LangChain",
       "Google Gemini API",
@@ -356,7 +386,7 @@ export const skills: SkillGroup[] = [
   {
     title: "Data & Storage",
     focus:
-      "Picking the right store for the job — relational for truth, vector for recall, Redis for speed.",
+      "I choose relational, vector, and cache stores around the shape of the data and the needs of the query.",
     items: [
       "PostgreSQL",
       "pgvector",
@@ -370,7 +400,7 @@ export const skills: SkillGroup[] = [
   {
     title: "Infra & Delivery",
     focus:
-      "Taking projects from localhost to production — containers, pipelines and deploys I can trust.",
+      "I take projects from local development to repeatable delivery with containers, CI, deployment, and practical debugging tools.",
     items: [
       "Docker",
       "Git / GitHub",

@@ -240,3 +240,27 @@
     animation: none;
   }
 }
+
+
+.intro__skip-field {
+  z-index: 10;
+}
+
+.intro__skip {
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+
+
+.intro__skip-field {
+  position: relative;
+  overflow: visible;
+  z-index: 10;
+}
+
+.intro__skip-field .intro__skip {
+  white-space: nowrap;
+  cursor: pointer;
+  touch-action: manipulation;
+}
